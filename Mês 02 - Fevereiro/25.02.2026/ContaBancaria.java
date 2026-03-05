@@ -22,7 +22,7 @@ public class ContaBancaria {
 
 	public void depositar(double valor) {
 		if(valor <= 0){
-			throw new RuntimeException("O valor não pode ser negativo");
+			throw new IllegalArgumentException("O valor não pode ser negativo");
 		}
 		else {
 			saldo += valor;
@@ -31,7 +31,10 @@ public class ContaBancaria {
 
 	public void sacar(double valor) {
 		if(valor > saldo){
-			throw new RuntimeException("O valor não pode ser maior que o saldo");
+			throw new IllegalArgumentException("O valor não pode ser maior que o saldo");
+		}
+		else if (valor <= 0){
+			throw new IllegalArgumentException("O valor não pode ser menor ou igual a zero");
 		}
 		else {
 			saldo -= valor;
@@ -43,8 +46,8 @@ public class ContaBancaria {
 	}
 
 	public void setTitular(String titular) {
-		if(titular.isBlank() || titular.isEmpty()){
-			throw new RuntimeException("O nome não pode ficar vazio");
+		if(titular.isBlank()){
+			throw new IllegalArgumentException("O nome não pode ficar vazio");
 		}
 		else {
 			this.titular = titular;
@@ -53,10 +56,6 @@ public class ContaBancaria {
 
 	public double getSaldo() {
 		return saldo;
-	}
-
-	public void setSaldo(double saldo) {
-		this.saldo = saldo;
 	}
 
 	@Override
